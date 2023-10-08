@@ -37,6 +37,7 @@
     .config-box_head {
       background-color: gray;
       color: white;
+      text-align: center;
     }
     .config-box_body {
       background-color: white;
@@ -46,30 +47,34 @@
     }
     .config-box_field {
       display: inline-flex;
-      align-items: center;
+      flex-direction: column;
       margin-bottom: .5em;
     }
-    .config-box_switch {
+    .config-box_switch, .config-box_choose {
       width: 100%;
     }
-    .config-box_switch-item {
+    .config-box_switch-item, .config-box_choose-item {
       display: block;
       padding: .25em;
     }
-    .config-box_switch-item:hover {
+    .config-box_switch-item:hover, .config-box_choose-item:hover {
       background-color: whitesmoke;
       cursor: pointer;
     }
-    .config-box_switch-item::before {
+    .config-box_switch-item::before, .config-box_choose-item::before {
       content: '[ ] ';
     }
     .config-box_switch-item.active::before {
-      content: '[X] ';
+      content: '[O] ';
+    }
+    .config-box_choose-item.active::before {
+      content: '[Y] ';
     }
     .config-box_action {
       padding: .25em;
+      display: inline-block;
     }
-    .config-box_action:hover {
+    .config-box_action:hover, .config-box_input:hover {
       background-color: whitesmoke;
       cursor: pointer;
     }
@@ -79,6 +84,19 @@
     .config-box_action::after {
       content: ' ]';
     }
+    .config-box_text, .config-box_input {
+      display: block;
+      padding: .25em;
+    }
+    .config-box_input::before {
+      content: '| ';
+      margin-left: -1.25em;
+      color: silver;
+    }
+    .config-box_input {
+      padding-left: 1.5em;
+      outline: 0;
+    }
   </style>
 </head>
 <body>
@@ -86,14 +104,28 @@
     <div class="config-box_head">CONFIG BOX</div>
     <div class="config-box_body">
       <div class="config-box_field">
+        <div class="config-box_text">Choose only one</div>
         <div class="config-box_switch">
           <span class="config-box_switch-item">switch item 1</span>
-          <span class="config-box_switch-item">switch item 2</span>
+          <span class="config-box_switch-item">switch item long text long long text</span>
           <span class="config-box_switch-item">switch item 3</span>
         </div>
       </div>
       <div class="config-box_field">
         <span class="config-box_action">Action</span>
+      </div>
+      <div class="config-box_field">
+        <div class="config-box_choose">
+          <span class="config-box_choose-item">choose item 1</span>
+          <span class="config-box_choose-item">choose item 2</span>
+          <span class="config-box_choose-item">choose item 3</span>
+        </div>
+      </div>
+      <div class="config-box_field">
+        <span class="config-box_input" contenteditable="true" spellcheck="false"></span>
+      </div>
+      <div class="config-box_field">
+        <span class="config-box_action" onclick="this.parentElement.parentElement.parentElement.remove()">Close</span>
       </div>
     </div>
   </div>
@@ -106,10 +138,11 @@
       e.target.style.top   = e.clientY+'px'
       e.target.style.visibility = 'hidden'
     })
-    config_box.addEventListener('dragend', e => e.target.style.visibility = 'unset' )
+    config_box.addEventListener('dragend', e => e.target.style.visibility = 'visible' )
+    //
     let config_box_switch = document.querySelectorAll('.config-box_switch')
     config_box_switch.forEach( el => {
-      el_child = el.children
+      let el_child = el.children
       function chooseOne(o) {
         el_child.forEach( (i) => {
           if(i != o) i.classList.remove('active')
@@ -119,6 +152,16 @@
         i.addEventListener('click', (e) => {
           i.classList.toggle('active')
           chooseOne(i)
+        })
+      })
+    })
+    //
+    let config_box_choose = document.querySelectorAll('.config-box_choose')
+    config_box_choose.forEach( el => {
+      let el_child = el.children
+      el_child.forEach( (i) => {
+        i.addEventListener('click', (e) => {
+          i.classList.toggle('active')
         })
       })
     })
