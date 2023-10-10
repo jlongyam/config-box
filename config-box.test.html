@@ -1,170 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
   <title>test: config-box</title>
-  <script>
-    Object.prototype.forEach = function( func, context ) {
-  if( !( typeof func === 'function') ) return
-  context = context || this
-  for (var i in this) {
-    if(this.hasOwnProperty && this.hasOwnProperty(i)) {
-      var ret = func.call(context, this[i], i)
-      if(!!ret || ret === 0 || ret === '') return ret
-      }
-    }
-  return null
-  }
-  </script>
-  <style>
-    .config-box {
-      display: block;
-      position: fixed;
-      box-sizing: border-box;
-      border: 2px solid gray;
-      font-family: monospace;
-      font-size: 1.25em;
-      line-height: 1.5em;
-      background-color: silver;
-      color: black;
-      left: 100px;
-      top: 100px;
-      z-index: 9999;
-      border-radius: 2px;
-    }
-    .config-box_head, .config-box_body { padding: .5em; }
-    .config-box_head {
-      background-color: gray;
-      color: white;
-      text-align: center;
-    }
-    .config-box_body {
-      background-color: white;
-      color: black;
-      display: flex;
-      flex-direction: column;
-    }
-    .config-box_field {
-      display: inline-flex;
-      flex-direction: column;
-      margin-bottom: .5em;
-    }
-    .config-box_switch, .config-box_choose {
-      width: 100%;
-    }
-    .config-box_switch-item, .config-box_choose-item {
-      display: block;
-      padding: .25em;
-    }
-    .config-box_switch-item:hover, .config-box_choose-item:hover {
-      background-color: whitesmoke;
-      cursor: pointer;
-    }
-    .config-box_switch-item::before, .config-box_choose-item::before {
-      content: '[ ] ';
-    }
-    .config-box_switch-item.active::before {
-      content: '[O] ';
-    }
-    .config-box_choose-item.active::before {
-      content: '[Y] ';
-    }
-    .config-box_action {
-      padding: .25em;
-      display: inline-block;
-    }
-    .config-box_action:hover, .config-box_input:hover {
-      background-color: whitesmoke;
-      cursor: pointer;
-    }
-    .config-box_action::before {
-      content: '[ ';
-    }
-    .config-box_action::after {
-      content: ' ]';
-    }
-    .config-box_text, .config-box_input {
-      display: block;
-      padding: .25em;
-    }
-    .config-box_input::before {
-      content: '| ';
-      margin-left: -1.25em;
-      color: silver;
-    }
-    .config-box_input {
-      padding-left: 1.5em;
-      outline: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="config-box.css">
+  <script src="lib/forEach.min.js"></script>
+  <script src="lib/createElement.min.js"></script>
+  <script src="config-box.js"></script>
 </head>
+
 <body>
-  <div id="config_box" class="config-box" draggable="true">
-    <div class="config-box_head">CONFIG BOX</div>
-    <div class="config-box_body">
-      <div class="config-box_field">
-        <div class="config-box_text">Choose only one</div>
-        <div class="config-box_switch">
-          <span class="config-box_switch-item">switch item 1</span>
-          <span class="config-box_switch-item">switch item long text long long text</span>
-          <span class="config-box_switch-item">switch item 3</span>
-        </div>
-      </div>
-      <div class="config-box_field">
-        <span class="config-box_action">Action</span>
-      </div>
-      <div class="config-box_field">
-        <div class="config-box_choose">
-          <span class="config-box_choose-item">choose item 1</span>
-          <span class="config-box_choose-item">choose item 2</span>
-          <span class="config-box_choose-item">choose item 3</span>
-        </div>
-      </div>
-      <div class="config-box_field">
-        <span class="config-box_input" contenteditable="true" spellcheck="false"></span>
-      </div>
-      <div class="config-box_field">
-        <span class="config-box_action" onclick="this.parentElement.parentElement.parentElement.remove()">Close</span>
-      </div>
-    </div>
-  </div>
-  
   <script>
-    
-    window.addEventListener('dragover', e => e.preventDefault(), false )
-    config_box.addEventListener('drag', e => {
-      e.target.style.left  = e.clientX+'px'
-      e.target.style.top   = e.clientY+'px'
-      e.target.style.visibility = 'hidden'
+    let config_box = new ConfigBox()
+    config_box.start()
+    config_box.createText()
+    config_box.createAction('Click', () => {
+      console.log('Action')
     })
-    config_box.addEventListener('dragend', e => e.target.style.visibility = 'visible' )
+    config_box.createText('Choose:')
     //
-    let config_box_switch = document.querySelectorAll('.config-box_switch')
-    config_box_switch.forEach( el => {
-      let el_child = el.children
-      function chooseOne(o) {
-        el_child.forEach( (i) => {
-          if(i != o) i.classList.remove('active')
-        })
-      }
-      el_child.forEach( (i) => {
-        i.addEventListener('click', (e) => {
-          i.classList.toggle('active')
-          chooseOne(i)
-        })
-      })
+    let config_choose = new ConfigChoose(config_box.body)
+    config_choose.create(['alpha', 'beta', 'gamma'], (choosed) => {
+      console.log(JSON.stringify(choosed))
     })
-    //
-    let config_box_choose = document.querySelectorAll('.config-box_choose')
-    config_box_choose.forEach( el => {
-      let el_child = el.children
-      el_child.forEach( (i) => {
-        i.addEventListener('click', (e) => {
-          i.classList.toggle('active')
-        })
-      })
+    config_box.createText('Switch:')
+    let config_switch = new ConfigSwitch(config_box.body)
+    config_switch.create(['Hello', 'World'], (choosen) => {
+      console.log(choosen)
     })
   </script>
 </body>
+
 </html>

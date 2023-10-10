@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <title>test: config-box</title>
+  <script src="lib/forEach.min.js"></script>
+  <link rel="stylesheet" href="config-box.css">
+</head>
+<body>
+  <div id="config_box" class="config-box" draggable="true">
+    <div class="config-box_head">
+      <span class="config-box_title">TITLE</span>
+      <span class="config-box_close">[X]</span>
+    </div>
+    <div class="config-box_body">
+      <div class="config-box_field">
+        <div class="config-box_text">Choose only one</div>
+        <div class="config-box_switch">
+          <span class="config-box_switch-item">switch item 1</span>
+          <span class="config-box_switch-item">switch item long text long long text</span>
+          <span class="config-box_switch-item">switch item 3</span>
+        </div>
+      </div>
+      <div class="config-box_field">
+        <span class="config-box_action">Action</span>
+      </div>
+      <div class="config-box_field">
+        <div class="config-box_choose">
+          <span class="config-box_choose-item">choose item 1</span>
+          <span class="config-box_choose-item">choose item 2</span>
+          <span class="config-box_choose-item">choose item 3</span>
+        </div>
+      </div>
+      <div class="config-box_field">
+        <span class="config-box_input" contenteditable="true" spellcheck="false"></span>
+      </div>
+      <div class="config-box_field">
+        <span class="config-box_action" onclick="this.parentElement.parentElement.parentElement.remove()">Close</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    
+    window.addEventListener('dragover', e => e.preventDefault(), false )
+    config_box.addEventListener('drag', e => {
+      e.target.style.left  = e.clientX+'px'
+      e.target.style.top   = e.clientY+'px'
+      e.target.style.visibility = 'hidden'
+    })
+    config_box.addEventListener('dragend', e => e.target.style.visibility = 'visible' )
+    //
+    let config_box_switch = document.querySelectorAll('.config-box_switch')
+    config_box_switch.forEach( el => {
+      let el_child = el.children
+      function chooseOne(o) {
+        el_child.forEach( (i) => {
+          if(i != o) i.classList.remove('active')
+        })
+      }
+      el_child.forEach( (i) => {
+        i.addEventListener('click', (e) => {
+          i.classList.toggle('active')
+          chooseOne(i)
+        })
+      })
+    })
+    //
+    let config_box_choose = document.querySelectorAll('.config-box_choose')
+    config_box_choose.forEach( el => {
+      let el_child = el.children
+      el_child.forEach( (i) => {
+        i.addEventListener('click', (e) => {
+          i.classList.toggle('active')
+        })
+      })
+    })
+    let config_box_close = document.querySelector('.config-box_close')
+    config_box_close.addEventListener('click', e => {
+      var el_parent = e.target.parentElement.parentElement
+      el_parent.remove()
+    })
+  </script>
+</body>
+</html>
