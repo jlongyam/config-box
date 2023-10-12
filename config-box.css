@@ -1,8 +1,25 @@
+/* DOM
+<div class="config-box" >
+    <div class="config-box_head">
+      <span class="config-box_title">
+      <span class="config-box_close">
+    </div>
+    <div class="config-box_body">
+      <div class="config-box_field">
+        <div class="config-box_WIDGET">
+*/
+:root {
+  --config-box_theme: gray;
+  --config-box_img-choose_off: url('lib/checkbox-blank-outline.svg');
+  --config-box_img-choose_on: url('lib/checkbox-marked.svg');
+  --config-box_img-switch_off: url('lib/radiobox-blank.svg');
+  --config-box_img-switch_on: url('lib/radiobox-marked.svg');
+}
 .config-box {
   display: block;
   position: fixed;
   box-sizing: border-box;
-  border: 2px solid gray;
+  border: 2px solid var(--config-box_theme);
   font-family: monospace;
   font-size: 1.25em;
   line-height: 1.5em;
@@ -13,105 +30,94 @@
   z-index: 9999;
   border-radius: 2px;
 }
-
 .config-box_head,
 .config-box_body {
   padding: .5em;
 }
-
 .config-box_head {
-  background-color: gray;
+  background-color: var(--config-box_theme);
   color: white;
   display: flex;
 }
-
 .config-box_title {
   flex-grow: 1;
+  cursor: default;
 }
-
 .config-box_close:hover {
   cursor: pointer;
   background-color: silver;
 }
-
 .config-box_body {
   background-color: white;
   color: black;
   display: flex;
   flex-direction: column;
+  max-height: 75vh;
+  max-width: 50vw;
+  overflow: auto;
 }
-
 .config-box_field {
   display: inline-flex;
   flex-direction: column;
   margin-bottom: .5em;
 }
-
 .config-box_field:last-child {
   margin-bottom: 0;
 }
-
 .config-box_switch,
 .config-box_choose {
   width: 100%;
 }
-
 .config-box_switch-item,
 .config-box_choose-item {
   display: block;
-  padding: .25em;
 }
-
 .config-box_switch-item:hover,
 .config-box_choose-item:hover {
   background-color: whitesmoke;
   cursor: pointer;
 }
-
-.config-box_switch-item::before,
 .config-box_choose-item::before {
-  content: '[ ] ';
+  content: var(--config-box_img-choose_off);
+  vertical-align: top;
 }
-
-.config-box_switch-item.active::before {
-  content: '[O] ';
-}
-
 .config-box_choose-item.active::before {
-  content: '[X] ';
+  content: var(--config-box_img-choose_on);
 }
-
+.config-box_switch-item::before {
+  content: var(--config-box_img-switch_off);
+  vertical-align: top;
+}
+.config-box_switch-item.active::before {
+  content: var(--config-box_img-switch_on);
+}
 .config-box_action {
   padding: .25em;
   display: inline-block;
+  background-color: #a5a5a5 ;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
 }
-
 .config-box_action:hover,
 .config-box_input:hover {
-  background-color: whitesmoke;
+  background-color: #b3b3b3;
   cursor: pointer;
 }
-
-.config-box_action::before {
-  content: '[ ';
-}
-
-.config-box_action::after {
-  content: ' ]';
-}
-
 .config-box_text,
 .config-box_input {
   display: block;
   padding: .25em;
 }
-
+.config-box_text {
+  white-space: pre;
+  overflow: auto;
+}
 .config-box_input::before {
   content: '| ';
   margin-left: -1.25em;
   color: silver;
 }
-
 .config-box_input {
   padding-left: 1.5em;
   outline: 0;

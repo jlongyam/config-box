@@ -56,6 +56,12 @@ class ConfigBox {
     this.#create()
     this.#listen()
   }
+  fixed() {
+    this.#el.root.style.top = 0+'px'
+    this.#el.root.style.right = 0+'px'
+    this.#el.root.style.left = 'auto'
+    this.#el.root.removeAttribute('draggable')
+  }
   get body() {
     return this.#el.body
   }
