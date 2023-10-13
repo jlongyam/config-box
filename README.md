@@ -5,3 +5,7 @@
 - ConfigBox
 - ConfigChoose
 - ConfigSwitch
+
+## Road map
+
+- [ ] include icon as data-url

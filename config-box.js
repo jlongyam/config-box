@@ -1,3 +1,4 @@
+/*! Copyright (c) 2023 jlongyam MIT License */
 // require createElement.js, Object.forEach
 class ConfigBox {
   constructor(title) {
@@ -9,7 +10,7 @@ class ConfigBox {
       el = createElement('div', { classList: 'config-box', draggable: 'true' }),
       el_head = createElement('div', { classList: 'config-box_head' }),
       el_title = createElement('span', { classList: 'config-box_title', textContent: this.title }),
-      el_close = createElement('span', { classList: 'config-box_close', textContent: '[X]' }),
+      el_close = createElement('span', { classList: 'config-box_close' }),
       el_body = createElement('div', { classList: 'config-box_body' })
       ;
     document.body.appendChild(el)
@@ -57,10 +58,13 @@ class ConfigBox {
     this.#listen()
   }
   fixed() {
-    this.#el.root.style.top = 0+'px'
-    this.#el.root.style.right = 0+'px'
+    this.#el.root.style.top = 2+'px'
+    this.#el.root.style.right = 2+'px'
     this.#el.root.style.left = 'auto'
     this.#el.root.removeAttribute('draggable')
+    // z-index
+    let z_index = getComputedStyle(this.#el.root).getPropertyValue('z-index')
+    this.#el.root.style.zIndex = --z_index
   }
   get body() {
     return this.#el.body
