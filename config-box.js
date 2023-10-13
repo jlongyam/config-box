@@ -33,7 +33,6 @@ class ConfigBox {
       e.target.style.visibility = 'hidden'
     })
     this.#el.root.addEventListener('dragend', e => e.target.style.visibility = 'visible')
-    //
     this.#el.close.addEventListener('click', () => this.#el.root.remove())
   }
   createText(content = 'LABEL') {
@@ -53,18 +52,38 @@ class ConfigBox {
     this.#el.body.appendChild(el_field)
     el_action.addEventListener('click', cb)
   }
+  inputValue = ''
+  createInput( cb ) {
+    let
+      el_field = createElement('div', { classList: 'config-box_field' }),
+      el_input = createElement('span', { classList: 'config-box_input', contentEditable: 'true', spellcheck: 'false' })
+      ;
+    el_field.appendChild(el_input)
+    this.#el.body.appendChild(el_field)
+    // https://developer.chrome.com/articles/keyboard-lock/
+    if ('keyboard' in navigator && 'lock' in navigator.keyboard) //console.log('keyboard.lock supported!')
+    el_input.addEventListener('keydown', e => {
+      if(e.code === 'Enter' ) e.preventDefault()
+      if(cb) cb(e.code, el_input.innerHTML)
+      this.inputValue = el_input.innerHTML
+    })
+  }
   start() {
     this.#create()
     this.#listen()
   }
-  fixed() {
-    this.#el.root.style.top = 2+'px'
-    this.#el.root.style.right = 2+'px'
-    this.#el.root.style.left = 'auto'
-    this.#el.root.removeAttribute('draggable')
-    // z-index
-    let z_index = getComputedStyle(this.#el.root).getPropertyValue('z-index')
-    this.#el.root.style.zIndex = --z_index
+  setPosition( cfg = { left: '100px', top: '100px', right: 'auto', bottom: 'auto'}, fixed = false ) {
+    this.#el.root.style.left = cfg.left
+    this.#el.root.style.top = cfg.top
+    this.#el.root.style.right = cfg.right
+    this.#el.root.style.bottom = cfg.bottom
+    let
+      width = getComputedStyle(this.#el.root).getPropertyValue('width'),
+      height = getComputedStyle(this.#el.root).getPropertyValue('height')
+      ;
+    this.#el.root.style.width = width
+    this.#el.root.style.height = height
+    if( fixed ) this.#el.root.removeAttribute('draggable')
   }
   get body() {
     return this.#el.body
@@ -129,7 +148,7 @@ class ConfigSwitch {
       let el_item = createElement('span', { classList: 'config-box_switch-item', textContent: item })
       el_switch.appendChild(el_item)
       el_item.addEventListener('click', () => {
-        el_item.classList.toggle('active')
+        if( !el_item.classList.contains('active') ) el_item.classList.toggle('active')
         chooseOne(el_item)
         this.#choosen = item
         if (cb) cb(this.#choosen)

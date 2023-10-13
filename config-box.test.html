@@ -33,10 +33,25 @@
     config_switch.create(['Hello', 'World'], (choosen) => {
       console.log(choosen)
     })
-    // fixed
-    let config_box2 = new ConfigBox()
+    config_box.createText('Input:')
+    config_box.createInput((code, result)=> {
+      console.log(code+':'+result)
+    })
+    config_box.createText('Test max-width')
+    config_box.createText('hjagdsh akjsdhakshd gskjdg kasdgkagsd hjagdsh akjsdhakshd gskjdg kasdgkagsd\nkasdgk gskjdg kasdgkagsd kasdgk gskjdg kasdgkagsd kasdgk')
+    // setPosition
+    let config_box2 = new ConfigBox('Config 2')
     config_box2.start()
-    config_box2.fixed()
+    config_box2.setPosition({ left: 'auto', top: '0', right: '0' })
+    let config_box3 = new ConfigBox('Config 3')
+    config_box3.start()
+    config_box3.setPosition({ left: '0', top: '0' })
+    let config_box4 = new ConfigBox('Config 4')
+    config_box4.start()
+    config_box4.setPosition({ left: '0', top: 'auto', bottom: '0' })
+    let config_box5 = new ConfigBox('Config 5')
+    config_box5.start()
+    config_box5.setPosition({ left: 'auto', top: 'auto', bottom: '0', right: '0' })
   </script>
 </body>
 

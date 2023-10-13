@@ -145,8 +145,7 @@
   text-align: center;
   font-weight: bold;
 }
-.config-box_action:hover,
-.config-box_input:hover {
+.config-box_action:hover {
   background-color: var(--config-box_color-1st_hover);
   cursor: pointer;
 }
@@ -158,13 +157,16 @@
 .config-box_text {
   white-space: pre;
   overflow: auto;
-}
-.config-box_input::before {
-  content: '| ';
-  margin-left: -1.25em;
-  color: silver;
+  max-width: 45vw;
 }
 .config-box_input {
-  padding-left: 1.5em;
   outline: 0;
+  border: 2px solid var(--config-box_color-1st);
+  background-color: var(--config-box_color-2nd_hover);
+  max-width: 45vw;
+  overflow: auto;
+  white-space: pre;
+}
+.config-box_input:focus {
+  background-color: var(--config-box_color-1st_hover);
 }
