@@ -1,4 +1,4 @@
-/*! Copyright (c) 2023 jlongyam MIT License */
+/*! Copyright (c) 2023 jlongyam MIT License | https://github.com/jlongyam/config-box */
 // require createElement.js, Object.forEach
 class ConfigBox {
   constructor(title) {
@@ -74,26 +74,35 @@ class ConfigChoose {
   constructor(parent) {
     this.parent = parent // should instance of ConfigBox.body
   }
-  #choosed = []
-  create(arr = ['One', 'Two', 'Three'], cb) {
+  chooses = []
+  #choosen = ''
+  #active = false
+  create(obj = {'One':true, 'Two':true, 'Three':false}, cb) {
     let
       el_field = createElement('div', { classList: 'config-box_field' }),
       el_choose = createElement('div', { classList: 'config-box_choose' })
       ;
     el_field.appendChild(el_choose)
-    arr.forEach(item => {
+    obj.forEach( (value, item) => {
       let el_item = createElement('span', { classList: 'config-box_choose-item', textContent: item })
       el_choose.appendChild(el_item)
+      if( value ) {
+        el_item.classList.add('active')
+        this.chooses.push(item)
+      }
       el_item.addEventListener('click', () => {
         el_item.classList.toggle('active')
         if (!el_item.classList.contains('active')) {
-          let i = this.#choosed.indexOf(item)
-          this.#choosed.splice(i, 1)
+          let i = this.chooses.indexOf(item)
+          this.chooses.splice(i, 1)
+          this.#active = false
         }
         else {
-          if (!this.#choosed.includes(item)) this.#choosed.push(item)
+          if (!this.chooses.includes(item)) this.chooses.push(item)
+          this.#active = true
         }
-        if (cb) cb(this.#choosed)
+        this.#choosen = item
+        if (cb) cb(this.#choosen, this.#active)
       })
     })
     this.parent.appendChild(el_field)

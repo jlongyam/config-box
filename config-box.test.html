@@ -22,9 +22,12 @@
     config_box.createText('Choose:')
     //
     let config_choose = new ConfigChoose(config_box.body)
-    config_choose.create(['alpha', 'beta', 'gamma'], (choosed) => {
-      console.log(JSON.stringify(choosed))
+    config_choose.create({'alpha': true, 'beta': false, 'gamma': false}, (item, active) => {
+      console.log(item+':'+active)
+      console.log(JSON.stringify(config_choose.chooses))
     })
+    console.log(JSON.stringify(config_choose.chooses))
+    //
     config_box.createText('Switch:')
     let config_switch = new ConfigSwitch(config_box.body)
     config_switch.create(['Hello', 'World'], (choosen) => {
