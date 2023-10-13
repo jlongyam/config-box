@@ -8,4 +8,4 @@
 
 ## Road map
 
-- [ ] include icon as data-url
+- [x] include icon as data-url
