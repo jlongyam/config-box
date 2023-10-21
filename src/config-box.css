@@ -9,11 +9,19 @@
         <div class="config-box_WIDGET">
 */
 /* fix */
-*,*::before,*::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   vertical-align: inherit;
   background-repeat: no-repeat;
 }
+
+html,
+body {
+  height: 100%;
+}
+
 :root {
   --config-box_color-1st: gray;
   --config-box_color-2nd: white;
@@ -26,6 +34,7 @@
   --config-box_img-switch_off: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M12,20C7.58,20 4,16.42 4,12C4,7.58 7.58,4 12,4C16.42,4 20,7.58 20,12C20,16.42 16.42,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2Z" /></svg>');
   --config-box_img-switch_on: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M12,20C7.58,20 4,16.42 4,12C4,7.58 7.58,4 12,4C16.42,4 20,7.58 20,12C20,16.42 16.42,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,7C9.24,7 7,9.24 7,12C7,14.76 9.24,17 12,17C14.76,17 17,14.76 17,12C17,9.24 14.76,7 12,7Z" /></svg>');
 }
+
 .config-box {
   display: block;
   position: fixed;
@@ -41,20 +50,25 @@
   z-index: 999;
   border-radius: 2px;
 }
+
 .config-box_head,
 .config-box_body {
   padding: .5em;
 }
+
 .config-box_head {
   background-color: var(--config-box_color-1st);
   color: var(--config-box_color-2nd);
   display: flex;
   vertical-align: bottom;
 }
+
 .config-box_title {
   flex-grow: 1;
   cursor: default;
+  font-size: 1.25em;
 }
+
 .config-box_close::before {
   content: '';
   width: 24px;
@@ -71,10 +85,12 @@
   /* color of svg */
   background-color: var(--config-box_color-2nd);
 }
+
 .config-box_close:hover::before {
   cursor: pointer;
   background-color: var(--config-box_color-1st_hover);
 }
+
 .config-box_body {
   background-color: var(--config-box_color-2nd);
   color: var(--config-box_color-3rd);
@@ -84,27 +100,33 @@
   max-width: 50vw;
   overflow: auto;
 }
+
 .config-box_field {
   display: inline-flex;
   flex-direction: column;
   margin-bottom: .5em;
 }
+
 .config-box_field:last-child {
   margin-bottom: 0;
 }
+
 .config-box_switch,
 .config-box_choose {
   width: 100%;
 }
+
 .config-box_switch-item,
 .config-box_choose-item {
   display: block;
 }
+
 .config-box_switch-item:hover,
 .config-box_choose-item:hover {
   background-color: var(--config-box_color-2nd_hover);
   cursor: pointer;
 }
+
 .config-box_choose-item::before,
 .config-box_switch-item::before {
   content: '';
@@ -120,22 +142,27 @@
   mask-position: center;
   background-color: var(--config-box_color-1st);
 }
+
 .config-box_choose-item::before {
   -webkit-mask: var(--config-box_img-choose_off);
   mask: var(--config-box_img-choose_off);
 }
+
 .config-box_choose-item.active::before {
   -webkit-mask: var(--config-box_img-choose_on);
   mask: var(--config-box_img-choose_on);
 }
+
 .config-box_switch-item::before {
   -webkit-mask: var(--config-box_img-switch_off);
   mask: var(--config-box_img-switch_off);
 }
+
 .config-box_switch-item.active::before {
   -webkit-mask: var(--config-box_img-switch_on);
   mask: var(--config-box_img-switch_on);
 }
+
 .config-box_action {
   padding: .25em;
   display: inline-block;
@@ -145,20 +172,24 @@
   text-align: center;
   font-weight: bold;
 }
+
 .config-box_action:hover {
   background-color: var(--config-box_color-1st_hover);
   cursor: pointer;
 }
+
 .config-box_text,
 .config-box_input {
   display: block;
   padding: .25em;
 }
+
 .config-box_text {
   white-space: pre;
   overflow: auto;
   max-width: 45vw;
 }
+
 .config-box_input {
   outline: 0;
   border: 2px solid var(--config-box_color-1st);
@@ -167,6 +198,7 @@
   overflow: auto;
   white-space: pre;
 }
+
 .config-box_input:focus {
   background-color: var(--config-box_color-1st_hover);
 }

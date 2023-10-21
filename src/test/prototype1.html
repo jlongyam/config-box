@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <title>test: config-box</title>
-  <script src="lib/forEach.min.js"></script>
-  <link rel="stylesheet" href="config-box.css">
+  <title>prototype: config-box</title>
+  <script src="../../lib/forEach.min.js"></script>
+  <link rel="stylesheet" href="../config-box.css">
 </head>
+
 <body>
   <div id="config_box" class="config-box" draggable="true">
     <div class="config-box_head">
@@ -40,26 +42,25 @@
       </div>
     </div>
   </div>
-  
+
   <script>
-    
-    window.addEventListener('dragover', e => e.preventDefault(), false )
+    window.addEventListener('dragover', e => e.preventDefault(), false)
     config_box.addEventListener('drag', e => {
-      e.target.style.left  = e.clientX+'px'
-      e.target.style.top   = e.clientY+'px'
+      e.target.style.left = e.clientX + 'px'
+      e.target.style.top = e.clientY + 'px'
       e.target.style.visibility = 'hidden'
     })
-    config_box.addEventListener('dragend', e => e.target.style.visibility = 'visible' )
+    config_box.addEventListener('dragend', e => e.target.style.visibility = 'visible')
     //
     let config_box_switch = document.querySelectorAll('.config-box_switch')
-    config_box_switch.forEach( el => {
+    config_box_switch.forEach(el => {
       let el_child = el.children
       function chooseOne(o) {
-        el_child.forEach( (i) => {
-          if(i != o) i.classList.remove('active')
+        el_child.forEach((i) => {
+          if (i != o) i.classList.remove('active')
         })
       }
-      el_child.forEach( (i) => {
+      el_child.forEach((i) => {
         i.addEventListener('click', (e) => {
           i.classList.toggle('active')
           chooseOne(i)
@@ -68,9 +69,9 @@
     })
     //
     let config_box_choose = document.querySelectorAll('.config-box_choose')
-    config_box_choose.forEach( el => {
+    config_box_choose.forEach(el => {
       let el_child = el.children
-      el_child.forEach( (i) => {
+      el_child.forEach((i) => {
         i.addEventListener('click', (e) => {
           i.classList.toggle('active')
         })
@@ -83,4 +84,5 @@
     })
   </script>
 </body>
+
 </html>

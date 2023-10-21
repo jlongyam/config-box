@@ -12,5 +12,6 @@
 
 ## Road map
 
-- [x] include icon as data-url
-- [x] set free position
+- [OK] use dragMouse
+- [OK] include icon as data-url
+- [OK] set free position
