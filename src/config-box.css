@@ -49,6 +49,7 @@ body {
   top: 100px;
   z-index: 999;
   border-radius: 2px;
+  height: auto;
 }
 
 .config-box_head,
