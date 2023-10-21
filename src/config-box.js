@@ -1,4 +1,3 @@
-/*! Copyright (c) 2023 jlongyam MIT License | https://github.com/jlongyam/config-box */
 // require createElement.js, Object.forEach
 class ConfigBox {
   constructor(title, mouse = false) {
@@ -85,12 +84,8 @@ class ConfigBox {
     this.#el.root.style.top = cfg.top
     this.#el.root.style.right = cfg.right
     this.#el.root.style.bottom = cfg.bottom
-    let
-      width = getComputedStyle(this.#el.root).getPropertyValue('width'),
-      height = getComputedStyle(this.#el.root).getPropertyValue('height')
-      ;
+    let width = getComputedStyle(this.#el.root).getPropertyValue('width')
     this.#el.root.style.width = width
-    this.#el.root.style.height = height
     if (fixed) this.#el.root.removeAttribute('draggable')
   }
   get body() {

@@ -9,6 +9,7 @@
 ## Tool
 
 - [css-minify](https://www.cleancss.com/css-minify/)
+- [minify-js](https://minify-js.com/)
 
 ## Road map
 
