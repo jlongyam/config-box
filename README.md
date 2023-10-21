@@ -6,6 +6,8 @@
 - ConfigChoose
 - ConfigSwitch
 
+[Changlog](src/build/changelog.md)
+
 ## Tool
 
 - [css-minify](https://www.cleancss.com/css-minify/)
