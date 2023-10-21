@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.2
+
+- fix dimension
+
 ## v2.4.1
 
-- Fix height
+- fix height

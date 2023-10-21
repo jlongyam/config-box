@@ -25,9 +25,24 @@ class ConfigBox {
     this.#el.close = el_close
     this.#el.body = el_body
   }
+  #setDimension(auto = false) {
+    if (auto) {
+      this.#el.root.style.width = 'auto'
+      this.#el.root.style.height = 'auto'
+    }
+    else {
+      let
+        width = getComputedStyle(this.#el.root).getPropertyValue('width'),
+        height = getComputedStyle(this.#el.root).getPropertyValue('height')
+      this.#el.root.style.width = width
+      this.#el.root.style.height = height
+    }
+  }
   #listen() {
     if (this.mouse) {
-      dragMouse(document.body, this.#el.root, {})
+      dragMouse(document.body, this.#el.root, {
+        drag: (e) => this.#setDimension()
+      })
       this.#el.close.addEventListener('click', () => this.#el.root.remove())
     }
     else {
@@ -40,6 +55,7 @@ class ConfigBox {
       this.#el.root.addEventListener('dragend', e => e.target.style.visibility = 'visible')
       this.#el.close.addEventListener('click', () => this.#el.root.remove())
     }
+
   }
   createText(content = 'LABEL') {
     let
@@ -57,6 +73,7 @@ class ConfigBox {
     el_field.appendChild(el_action)
     this.#el.body.appendChild(el_field)
     el_action.addEventListener('click', cb)
+    this.#setDimension(true)
   }
   inputValue = ''
   createInput(cb) {
@@ -84,8 +101,7 @@ class ConfigBox {
     this.#el.root.style.top = cfg.top
     this.#el.root.style.right = cfg.right
     this.#el.root.style.bottom = cfg.bottom
-    let width = getComputedStyle(this.#el.root).getPropertyValue('width')
-    this.#el.root.style.width = width
+    this.#setDimension()
     if (fixed) this.#el.root.removeAttribute('draggable')
   }
   get body() {

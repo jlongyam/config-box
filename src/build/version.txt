@@ -1,1 +1,1 @@
-/*! config-box v2.4.1 | Copyright (c) 2023 jlongyam | MIT License | https://github.com/jlongyam/config-box */
+/*! config-box v2.4.2 | Copyright (c) 2023 jlongyam | MIT License | https://github.com/jlongyam/config-box */

@@ -15,6 +15,7 @@
 
 ## Road map
 
+- [NO] can set switch value
 - [OK] use dragMouse
 - [OK] include icon as data-url
 - [OK] set free position
