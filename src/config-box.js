@@ -25,10 +25,10 @@ class ConfigBox {
     this.#el.close = el_close
     this.#el.body = el_body
   }
-  #setDimension(auto = false) {
-    if (auto) {
-      this.#el.root.style.width = 'auto'
-      this.#el.root.style.height = 'auto'
+  #setDimension(fit = false) {
+    if (fit) {
+      this.#el.root.style.width = 'fit-content'
+      this.#el.root.style.height = 'fit-content'
     }
     else {
       let
