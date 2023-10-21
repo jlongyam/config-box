@@ -10,6 +10,7 @@
 
 ## Tool
 
+- [Halpe.minifier](https://marketplace.visualstudio.com/items?itemName=Halpe.minifier)
 - [css-minify](https://www.cleancss.com/css-minify/)
 - [minify-js](https://minify-js.com/)
 
