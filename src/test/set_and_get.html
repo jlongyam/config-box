@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <title>test: set get</title>
+  <link rel="stylesheet" href="../config-box.css">
+  <script src="../../lib/forEach.min.js"></script>
+  <script src="../../lib/createElement.min.js"></script>
+  <script src="../../lib/dragMouse.min.js"></script>
+  <script src="../config-box.js"></script>
+</head>
+<body>
+  <script>
+    let cb = new ConfigBox(false,true)
+    cb.start()
+    let cs = new ConfigSwitch(cb.body)
+    cs.value = { 'A': false, 'B': true, 'C': false }
+    cs.create(choosen=> {
+      console.log(choosen)
+    })
+    let cc = new ConfigChoose(cb.body)
+    cc.value = { 'X': false, 'Y': true, 'Z': true }
+    cc.create((item, active)=> {
+      console.log(item+':'+active)
+      console.log(cc.chooses)
+    })
+  </script>
+</body>
+</html>

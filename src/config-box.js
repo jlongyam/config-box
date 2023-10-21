@@ -113,18 +113,19 @@ class ConfigChoose {
     this.parent = parent // should instance of ConfigBox.body
   }
   chooses = []
+  #values = { 'one': false, 'two': true, 'three': false }
   #choosen = ''
   #active = false
-  create(obj = { 'One': true, 'Two': true, 'Three': false }, cb) {
+  create(cb) {
     let
       el_field = createElement('div', { classList: 'config-box_field' }),
       el_choose = createElement('div', { classList: 'config-box_choose' })
       ;
     el_field.appendChild(el_choose)
-    obj.forEach((value, item) => {
+    this.#values.forEach((active, item) => {
       let el_item = createElement('span', { classList: 'config-box_choose-item', textContent: item })
       el_choose.appendChild(el_item)
-      if (value) {
+      if (active) {
         el_item.classList.add('active')
         this.chooses.push(item)
       }
@@ -145,34 +146,55 @@ class ConfigChoose {
     })
     this.parent.appendChild(el_field)
   }
+  set value( obj ) {
+    this.#values = obj
+  }
+  get value() {
+    return this.#values
+  }
 }
 class ConfigSwitch {
   constructor(parent) {
     this.parent = parent // should instance of ConfigBox.body
   }
+  
+  #values = { 'one': false, 'two': true, 'three': false }
   #choosen = ''
-  create(arr = ['One', 'Two', 'Three'], cb) {
+  create(cb) {
     let
       el_field = createElement('div', { classList: 'config-box_field' }),
       el_switch = createElement('div', { classList: 'config-box_switch' })
       ;
     el_field.appendChild(el_switch)
     let el_child = el_switch.children
-    function chooseOne(o) {
+    const chooseOne = o=> {
       el_child.forEach((i) => {
-        if (i != o) i.classList.remove('active')
+        if (i != o) {
+          i.classList.remove('active')
+          this.#values[i.textContent] = false
+        }
       })
     }
-    arr.forEach(item => {
+    this.#values.forEach((active,item) => {
       let el_item = createElement('span', { classList: 'config-box_switch-item', textContent: item })
       el_switch.appendChild(el_item)
+      if( active ) el_item.classList.toggle('active')
       el_item.addEventListener('click', () => {
-        if (!el_item.classList.contains('active')) el_item.classList.toggle('active')
+        if (!el_item.classList.contains('active')) {
+          el_item.classList.toggle('active')
+          this.#values[item] = true
+        }
         chooseOne(el_item)
         this.#choosen = item
         if (cb) cb(this.#choosen)
       })
     })
     this.parent.appendChild(el_field)
+  }
+  set value( obj ) {
+    this.#values = obj
+  }
+  get value() {
+    return this.#values
   }
 }
