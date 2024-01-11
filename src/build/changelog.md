@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.5.1
+
+- fix body margin
+
 ## v2.5.0
 
 - add choose set and get
